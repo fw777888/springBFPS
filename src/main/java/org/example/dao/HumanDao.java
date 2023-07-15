@@ -4,6 +4,7 @@ import org.example.model.Human;
 import org.example.util.ConnectionManager;
 import org.springframework.stereotype.Component;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -50,6 +51,23 @@ public class HumanDao implements Dao<Human, Long> {
                 id = ?
             """;
 
+    private final String UPDATE_SQL = """
+            UPDATE human SET
+                firstname = ?,
+                lastname = ?,
+                age = ?
+            WHERE id = ?
+            """;
+
+    private final String FIND_ALL = """
+            SELECT (
+                id,
+                firstname,
+                lastname,
+                age)
+            FROM human
+            """;
+
     public HumanDao(ConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
     }
@@ -64,12 +82,29 @@ public class HumanDao implements Dao<Human, Long> {
     }
 
     public void DeleteTable() {
-
+        try (var connection = connectionManager.get();
+            final var preparedStatement = connection.prepareStatement(DROP_TABLE_SQL)) {
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public Human findById(Long id) {
-        return null;
+        try(var connection = connectionManager.get();
+            final var preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)) {
+            preparedStatement.setLong(1, id);
+            var resultSet = preparedStatement.executeQuery();
+            Human human = null;
+
+            if (resultSet.next()) {
+                human = buildHuman(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } return Human
+
     }
 
     @Override
