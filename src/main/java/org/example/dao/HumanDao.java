@@ -92,19 +92,19 @@ public class HumanDao implements Dao<Human, Long> {
 
     @Override
     public Human findById(Long id) {
-        try(var connection = connectionManager.get();
-            final var preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)) {
-            preparedStatement.setLong(1, id);
-            var resultSet = preparedStatement.executeQuery();
-            Human human = null;
-
-            if (resultSet.next()) {
-                human = buildHuman(resultSet);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } return Human
-
+//        try(var connection = connectionManager.get();
+//            final var preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)) {
+//            preparedStatement.setLong(1, id);
+//            var resultSet = preparedStatement.executeQuery();
+//            Human human = null;
+//
+//            if (resultSet.next()) {
+//                human = buildHuman(resultSet);
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        } return Human
+    return null;
     }
 
     @Override

@@ -6,7 +6,7 @@ import javax.swing.event.ListDataEvent;
 import java.util.List;
 
 public interface Dao<E, I> {
-    // CRUDE - Create Read Delete Edit
+    // CRUD - Create Read Update Delete
 
     E findById(I id);
 
