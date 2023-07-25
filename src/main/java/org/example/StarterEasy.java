@@ -25,7 +25,7 @@ public class StarterEasy {
 
         String DB_USERNAME = "postgres";
         String DB_PASSWORD = "root";
-        String DB_URL = "jdbc:postgresql://localhost:4444/postgres";
+        String DB_URL = "jdbc:postgresql://localhost:2222/postgres";
 
         String username = "Max";
         String password = "Password";
